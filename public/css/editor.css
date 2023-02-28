@@ -1,6 +1,6 @@
 .banner{
     width: 100%;
-    height: 400px;
+    height:400px;
     position: relative;
     background: #e7e7e7;
     background-size: cover;
@@ -14,7 +14,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,8 +24,11 @@
 .banner-upload-btn img{
     width: 20px;
 }
-
-.blog{
+.logo {
+    width: 60px;
+    height: 60px;
+}
+.note{
     width: 70vw;
     min-width: 400px;
     height: 100px;
@@ -53,27 +56,27 @@ textarea::-webkit-scrollbar-thumb{
     font-weight: 600;
     color: #2d2d2d;
     resize: none;
-    border: none;
+    border:none;
     padding: 10px;
     border-radius: 10px;
 }
 
 .title::placeholder,
-.article::placeholder{
+.arrticle::placeholder{
     color: #2d2d2d;
 }
 
 .article{
-    height: 500px;
+    height : 500px;
     font-size: 20px;
-    margin-top: 20px;
+    margin-top:20px;
     line-height: 30px;
     font-weight: 500;
     padding-bottom: 100px;
     white-space: pre-wrap;
 }
 
-.blog-options{
+.note-options{
     position: fixed;
     bottom: 0;
     left: 0;

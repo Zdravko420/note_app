@@ -1,16 +1,40 @@
 {
-  "name": "note_app",
+  "name": "zproekt-js",
   "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start":"nodemon server.js"
-  },
-  "author": "",
-  "license": "ISC",
   "description": "",
+  "main": "server.js",
   "dependencies": {
+    "acorn": "^8.7.1",
+    "acorn-import-assertions": "^1.8.0",
+    "ajv-keywords": "^3.5.2",
+    "ansi-regex": "^5.0.1",
+    "ansi-styles": "^4.3.0",
+    "array-flatten": "^1.1.1",
+    "balanced-match": "^1.0.2",
+    "binary-extensions": "^2.2.0",
+    "brace-expansion": "^1.1.11",
+    "bytes": "^3.1.2",
+    "buffer-from": "^1.1.2",
+    "chrome-trace-event": "^1.0.3",
+    "caniuse-lite": "^1.0.30001339",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "colorette": "^2.0.16",
+    "commander": "^2.20.3",
+    "concat-map": "^0.0.1",
+    "cookie": "^0.5.0",
+    "cookie-signature": "^1.0.6",
+    "core-js": "^3.6.5",
+    "core-util-is": "^1.0.3",
     "express-fileupload": "^1.4.0",
     "express.js": "^1.0.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
