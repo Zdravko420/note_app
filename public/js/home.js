@@ -1,21 +1,45 @@
-const blogSection = document.querySelector('.blogs-section');
+const noteSection = document.querySelector('.notes-section');
 
-db.collection("blogs").get().then((blogs) => {
-    blogs.forEach(blog => {
-        if(blog.id != decodeURI(location.pathname.split("/").pop())){
-            createBlog(blog);
+db.collection("notes").get().then((notes) => {
+    notes.forEach(note => {
+        if(note.id != decodeURI(location.pathname.split("/").pop())){
+            createnote(note);
         }
     })
 })
 
-const createBlog = (blog) => {
-    let data = blog.data();
-    blogSection.innerHTML += `
-    <div class="blog-card">
-        <img src="${data.bannerImage}" class="blog-image" alt="">
-        <h1 class="blog-title">${data.title.substring(0, 100) + '...'}</h1>
-        <p class="blog-overview">${data.article.substring(0, 200) + '...'}</p>
-        <a href="/${blog.id}" class="btn dark">read</a>
-    </div>
-    `;
+const createnote = (note) => {
+    let data = note.data();
+    if(data.bannerImage){
+        noteSection.innerHTML += `
+        <div class="note-card">
+            <img src="${data.bannerImage}" class="note-image" alt="">
+            <h1 class="note-title">${data.title.substring(0, 100) + '...'}</h1>
+            <p class="note-overview">${data.article.substring(0, 200) + '...'}</p>
+            <a href="/${note.id}" class="btn dark">read</a>
+            <a href="#" onclick="deleteBlog('${note.id}')" class="btn dark">delete</a>
+        </div>
+        `;
+    }
+    else{
+        noteSection.innerHTML += `
+        <div class="note-card">
+            <h1 class="note-title">${data.title.substring(0, 100) + '...'}</h1>
+            <p class="note-overview">${data.article.substring(0, 200) + '...'}</p>
+            <a href="/${note.id}" class="btn dark">read</a>
+            <a href="#" onclick="deleteBlog('${note.id}')" class="btn dark">delete</a>
+            
+        </div>
+        `;
+    }
+    
+}
+
+const deleteBlog = (id) => {
+
+db.collection("notes").doc (id).delete().then(() => { location.reload();})
+.catch((error) =>{
+    console.log("Error deleteing the note");
+})
+
 }

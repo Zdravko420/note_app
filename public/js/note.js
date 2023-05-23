@@ -1,17 +1,65 @@
-import {firestore} from "./firebase.js";
-import {setDoc, doc, getDocs, collection} from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js';
+let noteId = decodeURI(location.pathname.split("/").pop());
 
-const note = document.getElementById('note');
+let docRef = db.collection("notes").doc(noteId);
 
-const querySnapshot = await getDocs(collection(firestore, `notes`));
-querySnapshot.forEach((docs) =>{
-    console.log(docs.data())
-    let article = docs.data();
-    note.innerHTML += 
-    `<div class="note">
-        <h1>${article.title}</h1>
-        <img src="${article.bannerImage}" class="base-img"/>
-        ${article.article}
-    </div>`;
+docRef.get().then((doc) => {
+    if(doc.exists){
+        setupNote(doc.data());
+    } else{
+        location.replace("/");
+    }
 })
+
+const setupNote = (data) => {
+    const banner = document.querySelector('.banner');
+    const noteTitle = document.querySelector('.title');
+    const titleTag = document.querySelector('title');
+    const publish = document.querySelector('.published');
     
+    banner.style.backgroundImage = `url(${data.bannerImage})`;
+
+    titleTag.innerHTML += noteTitle.innerHTML = data.title;
+    publish.innerHTML += data.publishedAt;
+
+    const article = document.querySelector('.article');
+    addArticle(article, data.article);
+}
+
+const addArticle = (ele, data) => {
+    data = data.split("\n").filter(item => item.length);
+    // console.log(data);
+
+    data.forEach(item => {
+        // check for heading
+        if(item[0] == '#'){
+            let hCount = 0;
+            let i = 0;
+            while(item[i] == '#'){
+                hCount++;
+                i++;
+            }
+            let tag = `h${hCount}`;
+            ele.innerHTML += `<${tag}>${item.slice(hCount, item.length)}</${tag}>`
+        } 
+        //checking for image format
+        else if(item[0] == "!" && item[1] == "["){
+            let seperator;
+
+            for(let i = 0; i <= item.length; i++){
+                if(item[i] == "]" && item[i + 1] == "(" && item[item.length - 1] == ")"){
+                    seperator = i;
+                }
+            }
+
+            let alt = item.slice(2, seperator);
+            let src = item.slice(seperator + 2, item.length - 1);
+            ele.innerHTML += `
+            <img src="${src}" alt="${alt}" class="article-image">
+            `;
+        }
+
+        else{
+            ele.innerHTML += `<p>${item}</p>`;
+        }
+    })
+}
